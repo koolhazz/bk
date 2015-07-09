@@ -1,0 +1,30 @@
+﻿1.1.	Header报文头定义：
+报文头定义：
+#pragma pack(1)
+struct  PacketHeader
+{
+unsigned short pack_len;    /*整包长度，包括包头+包体，但不包含自身的两个字节*/
+unsigned char start[2];        /*消息开始标记*/
+unsigned char main_ver;      /*协议主版本号*/
+unsigned char sub_ver;       /*协议子版本号*/
+unsigned short main_cmd;    /*主命令字*/
+unsigned char code;     	  /*校验code*/ 
+unsigned short sub_cmd;     /*子命令字*/
+unsigned short seq;          /*序列号 首次就填0*/
+unsigned char source_type;    /*消息来源 */
+};
+#pragma pack()
+
+14个字节
+
+1.2.	Body报文体业务数据
+注意：所有String类型的报文都必须带长度信息，长度为字符串长度+1。
+字符串都以‘\0’结尾。即：一个长度为10的aaaaaaaaaa字符串报文格式如下：
+10+1	aaaaaaaaa\0
+
+消息开始标记 统一定义为 B
+HuangHan(黄涵) 11:09:41
+Y
+main_ver 当前协议主版本号	1  
+sub_ver  协议子版本号 		1 
+source_type：	1-Flash  2-iPhon  3-Android
